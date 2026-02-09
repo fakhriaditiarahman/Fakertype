@@ -1,69 +1,50 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
+  <meta name="description" content="Fakertype - Web Auto Nulis Tugas Modern Cinematic">
   <meta name="author" content="Fakertype">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&amp;display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 
   <title>Fakertype | Web Auto Nulis Tugas</title>
-  <!--
-
--->
 
   <!-- Additional CSS Files -->
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-
   <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
-
   <link rel="stylesheet" href="assets/css/templatemo-lava.css">
-
   <link rel="stylesheet" href="assets/css/owl-carousel.css">
+  <link rel="stylesheet" href="assets/css/modern-cinematic.css">
 
   <style>
     @font-face {
       font-family: HandwritingCR-2;
       src: url(/fonts/HandwritingCR-2.ttf);
     }
-
-    @media only screen and (max-width: 1140px) {
-      .welcome-area {
-        margin-bottom: 50px;
-      }
-    }
   </style>
 </head>
 
 <body>
 
-
   <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky background-header">
+  <header class="header-area header-sticky">
     <div class="container">
       <div class="row">
         <div class="col-12">
           <nav class="main-nav">
-            <!-- ***** Logo Start ***** -->
             <a href="index.html" class="logo">
               Fakertype
             </a>
-            <!-- ***** Logo End ***** -->
-            <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li class="scroll-to-section"><a href="#welcome" class="menu-item">Home</a></li>
-
-              <li class="scroll-to-section"><a href="#Fakertype" class="menu-item active">Fakertype</a>
-              </li>
-
+              <li class="scroll-to-section"><a href="#welcome" class="menu-item active">Home</a></li>
+              <li class="scroll-to-section"><a href="#Fakertype" class="menu-item">Fakertype</a></li>
               <li class="scroll-to-section"><a href="#contact-us" class="menu-item">Contact Us</a></li>
             </ul>
             <a class="menu-trigger">
               <span>Menu</span>
             </a>
-            <!-- ***** Menu End ***** -->
           </nav>
         </div>
       </div>
@@ -71,31 +52,22 @@
   </header>
   <!-- ***** Header Area End ***** -->
 
-
   <!-- ***** Welcome Area Start ***** -->
   <div class="welcome-area" id="welcome">
-
-    <!-- ***** Header Text Start ***** -->
     <div class="header-text">
       <div class="container">
         <div class="row">
-          <div class="left-text col-lg-6 col-md-12 col-sm-12 col-xs-12"
-            data-scroll-reveal="enter left move 30px over 0.6s after 0.4s" data-scroll-reveal-id="1"
-            data-scroll-reveal-initialized="true" data-scroll-reveal-complete="true">
-            <h1>Fakertype <em>.</em></h1>
-            <p>Mager mau nulis offline? .
-              Mending pakai Fakertype.
-              Fakertype merupakan website nulis otomatis bagi kalian yg mager nulis dikertas</p>
-            <a href="#Fakertype" class="main-button-slider">Start</a>
+          <div class="left-text col-lg-12" data-scroll-reveal="enter bottom move 50px over 0.8s after 0.2s">
+            <h1>Fakertype</h1>
+            <p>Mager mau nulis offline? Mending pakai Fakertype. Website nulis otomatis paling elegan untuk tugas kalian.</p>
+            <a href="#Fakertype" class="main-button-slider">Mulai Sekarang</a>
           </div>
         </div>
       </div>
     </div>
-    <!-- ***** Header Text End ***** -->
   </div>
   <!-- ***** Welcome Area End ***** -->
 
-  <div class="left-image-decor"></div>
   <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
   <script>
     let bg, font, margin, gap, fontsize = 16;
@@ -125,31 +97,44 @@
       }
     ];
 
+    let books = [{
+        'index': 0,
+        'name': 'Folio 1',
+        'file': 'folio.jpg'
+      },
+      {
+        'index': 1,
+        'name': 'Folio 2',
+        'file': 'folio2.jpg'
+      }
+    ];
+
     let getFontIndex = () => {
       let fontIndex = localStorage.getItem('fontIndex');
-      if (fontIndex) {
+      if (fontIndex && fonts[fontIndex]) {
         return fonts[fontIndex];
       }
       return fonts[0];
     }
 
-    // canvas
-    function preload() {
-
+    let getBookIndex = () => {
+      let bookIndex = localStorage.getItem('bookIndex');
+      if (bookIndex && books[bookIndex]) {
+        return books[bookIndex];
+      }
+      return books[0];
     }
 
     function setup() {
-      // ukuran asli gambar 300x441
-      createCanvas(300 * 2, 447 * 2);
-      bg = loadImage('/img/folio.jpg');
+      let canvas = createCanvas(300 * 2, 447 * 2);
+      canvas.parent('canvas-parent');
+      bg = loadImage('/img/' + getBookIndex().file);
       font = loadFont('/fonts/' + getFontIndex().file);
-
       textFont(font);
       textSize(fontsize);
     }
 
     function draw() {
-      // fix_dpi();
       background(bg);
       margin = 20;
       fill(0, 0, 0, 200);
@@ -157,177 +142,134 @@
       text(txtName, 0, 0);
       text(txtDate, 450, 0);
       translate(0, margin + 7);
-
-      text(txtContent, 0, 0, 580 /*, 800 */ );
+      text(txtContent, 0, 0, 580);
     }
 
     document.addEventListener('DOMContentLoaded', (e) => {
+      // Font Select
       let fontSelectEl = document.getElementById('font');
       let fontSelectOptionTemplate = (index, name) => {
         let _selected = (index == getFontIndex().index) ? 'selected' : '';
         return `<option value="${index}" ${_selected}>${name}</option>`;
       }
-      let _temp = '';
+      let _tempFonts = '';
       fonts.forEach((font, index) => {
-        _temp += fontSelectOptionTemplate(index, font.name);
+        _tempFonts += fontSelectOptionTemplate(index, font.name);
       });
-      fontSelectEl.innerHTML = _temp;
+      fontSelectEl.innerHTML = _tempFonts;
+
+      // Book Select
+      let bookSelectEl = document.getElementById('book');
+      let bookSelectOptionTemplate = (index, name) => {
+        let _selected = (index == getBookIndex().index) ? 'selected' : '';
+        return `<option value="${index}" ${_selected}>${name}</option>`;
+      }
+      let _tempBooks = '';
+      books.forEach((book, index) => {
+        _tempBooks += bookSelectOptionTemplate(index, book.name);
+      });
+      bookSelectEl.innerHTML = _tempBooks;
     });
   </script>
   <script>
     function downloadCanvas(c, filename) {
-      /// create an "off-screen" anchor tag
-      var lnk = document.createElement('a'),
-        e;
-      /// the key here is to set the download attribute of the a tag
+      var lnk = document.createElement('a'), e;
       lnk.download = filename;
-      /// convert canvas content to data-uri for link. When download
-      /// attribute is set the content pointed to by link will be
-      /// pushed as "download" in HTML5 capable browsers
       lnk.href = c.toDataURL();
-      /// create a "fake" click-event to trigger the download
       if (document.createEvent) {
         e = document.createEvent("MouseEvents");
-        e.initMouseEvent("click", true, true, window,
-          0, 0, 0, 0, 0, false, false, false,
-          false, 0, null);
+        e.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
         lnk.dispatchEvent(e);
       } else if (lnk.fireEvent) {
         lnk.fireEvent("onclick");
       }
     }
-    function fix_dpi() {
-      let canvas = document.getElementById('defaultCanvas0');
-      let dpi = window.devicePixelRatio;
-      let style = {
-        height() {
-          return +getComputedStyle(canvas).getPropertyValue('height').slice(0, -2);
-        },
-        width() {
-          return +getComputedStyle(canvas).getPropertyValue('width').slice(0, -2);
-        }
-      }
-      canvas.setAttribute('width', style.width() * dpi);
-      canvas.setAttribute('height', style.height() * dpi);
-    }
   </script>
-  <!-- ***** Features Big Item Start ***** -->
+
+  <!-- ***** Fakertype Tool Section Start ***** -->
   <section class="section" id="Fakertype">
     <div class="container">
-      <div class="row">
-
-        <!-- ***** Contact Form Start ***** -->
-        <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="row align-items-center">
+        <div class="col-lg-5 col-md-12 col-sm-12">
           <div class="contact-form">
-            <div class="card-body">
-              <div class="form-group">
+            <h2 class="mb-4">Konfigurasi</h2>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="font">Pilih Font:</label>
+                <select class="form-control" id="font" onchange="localStorage.setItem('fontIndex', this.value);setup()"></select>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="font">Pilih Font:</label>
-                  <select class="form-control" id="font"
-                    onchange="localStorage.setItem('fontIndex', this.value);setup()"></select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="book">Pilih Buku:</label>
-                  <select class="form-control" id="book"
-                    onchange="localStorage.setItem('bookIndex', this.value);setup()"></select>
-                </div>
+              <div class="form-group col-md-6">
+                <label for="book">Pilih Buku:</label>
+                <select class="form-control" id="book" onchange="localStorage.setItem('bookIndex', this.value);setup()"></select>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="date">Hari/Tanggal</label>
-                  <input type="text" class="form-control" id="date" oninput="txtDate = this.value">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Nama</label>
-                  <input type="text" class="form-control" id="name" oninput="txtName = this.value">
-                </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="date">Hari/Tanggal</label>
+                <input type="text" class="form-control" id="date" oninput="txtDate = this.value" placeholder="Senin, 1 Januari 2024">
               </div>
-              <div class="form-group">
-                <label for="comment">Isi Teks Kalian:</label>
-                <textarea class="form-control" id="content" rows="10" oninput="txtContent = this.value"></textarea>
+              <div class="form-group col-md-12">
+                <label for="name">Nama</label>
+                <input type="text" class="form-control" id="name" oninput="txtName = this.value" placeholder="Nama Lengkap">
               </div>
-
-
             </div>
             <div class="form-group">
-
-              <button class="main-button"
-                onclick="downloadCanvas(document.getElementById('defaultCanvas0'), 'hasil.png')">Download</button>
+              <label for="content">Isi Teks:</label>
+              <textarea class="form-control" id="content" rows="8" oninput="txtContent = this.value" placeholder="Tulis tugasmu di sini..."></textarea>
             </div>
+            <button class="main-button w-100 mt-3" onclick="downloadCanvas(document.getElementById('defaultCanvas0'), 'hasil.png')">Download Hasil</button>
           </div>
         </div>
-        <div class="col-lg-6 col-md-12 col-sm-12">
-
-
-          <main class="paper-container"></main>
-
-          
+        <div class="col-lg-7 col-md-12 col-sm-12 text-center">
+          <div id="canvas-parent" class="paper-container mt-5 mt-lg-0"></div>
         </div>
       </div>
     </div>
-    </div>
-    </div>
   </section>
-  <!-- ***** Features Big Item End ***** -->
-
-  <div class="right-image-decor"></div>
-
+  <!-- ***** Fakertype Tool Section End ***** -->
 
   <!-- ***** Footer Start ***** -->
   <footer id="contact-us">
     <div class="container">
       <div class="footer-content">
         <div class="row">
-          <!-- ***** Contact Form Start ***** -->
           <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="contact-form">
               <form id="contact" action="" method="post">
+                <h2 class="mb-4 ">Hubungi Kami</h2>
                 <div class="row">
-
-
                   <div class="col-md-6 col-sm-12">
                     <fieldset>
-                      <input name="name" type="text" id="contact-name" placeholder="Full Name" required=""
-                        style="background-color: rgba(250,250,250,0.3);" aria-label="Full Name">
+                      <input name="name" type="text" id="contact-name" placeholder="Nama Lengkap" required="" class="form-control">
                     </fieldset>
                   </div>
                   <div class="col-md-6 col-sm-12">
                     <fieldset>
-                      <input name="email" type="text" id="email" placeholder="E-Mail Address" required=""
-                        style="background-color: rgba(250,250,250,0.3);" aria-label="E-Mail Address">
+                      <input name="email" type="email" id="email" placeholder="Alamat Email" required="" class="form-control">
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <textarea name="message" rows="6" id="message" placeholder="Your Message" required=""
-                        style="background-color: rgba(250,250,250,0.3);" aria-label="Your Message"></textarea>
+                      <textarea name="message" rows="4" id="message" placeholder="Pesan Anda" required="" class="form-control"></textarea>
                     </fieldset>
                   </div>
-                  <div class="col-lg-12">
+                  <div class="col-lg-12 text-center">
                     <fieldset>
-                      <button type="submit" id="form-submit" class="main-button">Send Message
-                        Now</button>
+                      <button type="submit" id="form-submit" class="main-button">Kirim Pesan</button>
                     </fieldset>
                   </div>
                 </div>
-
               </form>
             </div>
           </div>
-          <!-- ***** Contact Form End ***** -->
-          <div class="right-content col-lg-6 col-md-12 col-sm-12">
-            <h2>More About Fakertype</h2>
-            <p>Mager mau nulis offline? . Mending pakai Fakertype. Fakertype merupakan website nulis otomatis bagi kalian yg mager nulis dikertas
-              <br><br>If you need this contact form to send email to your inbox, you may follow our <a rel="nofollow"
-                href="https://web.facebook.com/fvkhriar/" target="_parent">contact</a> page
-              for more detail.</p>
+          <div class="right-content col-lg-6 col-md-12 col-sm-12 mt-5 mt-lg-0">
+            <h2>Tentang Fakertype</h2>
+            <p>Fakertype adalah solusi modern bagi Anda yang ingin mengubah teks digital menjadi tulisan tangan di atas kertas secara otomatis. Cepat, mudah, dan terlihat natural.</p>
             <ul class="social">
-              <li><a href="https://web.facebook.com/fvkhriar/" class="d-flex justify-content-center align-items-center" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="https://x.com/FakhriAR05" class="d-flex justify-content-center align-items-center" aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="https://www.linkedin.com/in/fakhri-aditia-rahman-36b54229b/" class="d-flex justify-content-center align-items-center" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
-              <li><a href="https://www.instagram.com/fvkhriar/" class="d-flex justify-content-center align-items-center" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>
+              <li><a href="https://web.facebook.com/fvkhriar/"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="https://x.com/FakhriAR05"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="https://www.linkedin.com/in/fakhri-aditia-rahman-36b54229b/"><i class="fa fa-linkedin"></i></a></li>
+              <li><a href="https://www.instagram.com/fvkhriar/"><i class="fa fa-instagram"></i></a></li>
             </ul>
           </div>
         </div>
@@ -359,8 +301,5 @@
   <!-- Global Init -->
   <script src="assets/js/custom.js"></script>
 
-
-
 </body>
-
 </html>

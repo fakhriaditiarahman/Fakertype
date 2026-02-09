@@ -205,3 +205,121 @@ footer h2 {
     border-color: var(--primary);
     transform: translateY(-3px);
 }
+
+/* Media Queries */
+@media (max-width: 991px) {
+    .welcome-area h1 {
+        font-size: 64px;
+    }
+
+    .section {
+        padding: 80px 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .welcome-area h1 {
+        font-size: 48px;
+    }
+
+    .welcome-area p {
+        font-size: 16px;
+    }
+
+    .contact-form {
+        padding: 24px;
+    }
+
+    .header-area .main-nav .nav {
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 12px;
+        margin-top: 20px;
+        border: 1px solid var(--glass-border);
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-area h1 {
+        font-size: 42px;
+    }
+
+    .main-button, .main-button-slider {
+        padding: 14px 30px;
+        font-size: 14px;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.welcome-area .header-text {
+    animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.contact-form {
+    animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+    opacity: 0;
+}
+
+/* Final Refinements */
+footer {
+    background-image: none !important;
+    background-color: #030303 !important;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+}
+
+.footer-content .right-content h2 em {
+    color: var(--primary) !important;
+    font-style: normal;
+}
+
+#contact-us .contact-form {
+    margin-bottom: 30px;
+}
+
+/* Fix for overlapping inputs on some tablets */
+@media (max-width: 991px) {
+    #contact .col-md-6 {
+        margin-bottom: 20px;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}

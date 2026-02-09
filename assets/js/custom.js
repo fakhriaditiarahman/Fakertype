@@ -244,3 +244,21 @@
 
 
 })(window.jQuery);
+// Optimization: Throttle function using requestAnimationFrame
+const throttle = (callback) => {
+  let queuedCallback = null;
+  return (...args) => {
+    if (!queuedCallback) {
+      requestAnimationFrame(() => {
+        queuedCallback(...args);
+        queuedCallback = null;
+      });
+    }
+    queuedCallback = callback;
+  };
+};
+
+// Apply throttle to scroll events if needed
+$(window).on('scroll', throttle(() => {
+    // Custom scroll logic can go here if needed
+}));
